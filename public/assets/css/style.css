@@ -1,0 +1,80 @@
+body, html {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.5em;
+    color: #3a3a3a;
+}
+
+body {
+    padding-top: 100px;
+}
+
+#lap .selected {
+    font-weight: bold;
+}
+
+.p403 h1, .p404 h1 {
+    text-align: center;
+    font-size: 200px;
+    color: #bbb;
+}
+
+.p403 h4, .p404 h4 {
+    text-align: center;
+    font-size: 50px;
+    color: #999;
+}
+
+.p403 h4, .p403 h1 {
+    color: #C00;
+}
+
+/*navbar*/
+.navbar {
+    border-bottom: solid 2px #369;
+}
+
+.navbar-brand {
+    padding: 0;
+    margin: -10px 1.5rem -10px -10px;
+}
+
+.navbar-brand img {
+    height: 55px;
+}
+
+.pill-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-left: 7px;
+}
+
+.pill-container {
+    position: absolute;
+    top: -11px;
+}
+
+.pag-title {
+    color: #369;
+    font-size: 25px;
+    font-weight: 700;
+    padding-bottom: .4em;
+    border-bottom: solid 2px #369;
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show > .nav-link {
+    color: #369;
+    font-weight: 700;
+}
+
+.foto {
+    width: 220px;
+    height: 220px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    margin: 0 auto .5em auto;
+}
+
+
+
