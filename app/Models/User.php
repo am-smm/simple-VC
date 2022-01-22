@@ -16,7 +16,7 @@ class User
                         array_get('username', $array, ''),
                         '',
                         array_get('tipo', $array, 0),
-                        array_get('member_id', $array, null),
+                        array_get('member_id', $array, null)
         );
     }
 
