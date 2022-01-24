@@ -23,6 +23,20 @@ class View
         $this->load('404', ['page' => $page]);
     }
 
+    public function nodata(string $msg_erro, string $link = '/', string $msg_link = 'home') {
+        $this->load('nodata', [
+            'msg_erro' => $msg_erro,
+            'link' => $link,
+            'msg_link' => $msg_link,
+        ]);
+    }
+
+    public function redirectWithFlashMsgTo(string $flash_msg, string $redirect_to = '/') {
+        flash()->error($flash_msg, false);
+        redirect($redirect_to);
+    }
+
+
     /**
      * @param string $tpl_filename
      * @param array $tpl_vars

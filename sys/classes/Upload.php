@@ -58,7 +58,7 @@ class Upload
             // http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
             $this->uploaded = true;
             $this->filename = filter_var($_FILES['foto']['name'], FILTER_SANITIZE_STRING);
-            $this->movedFilename = (!empty($this->filename) ? date("d-m-Y-H-i-s-") . basename($this->filename) :'');
+            $this->movedFilename = (!empty($this->filename) ? date("d-m-Y-H-i-s-") . basename($this->filename) : '');
             $this->tipo = $_FILES['foto']['type'];
             $this->tmp_name = $_FILES['foto']['tmp_name'];
             $this->size = $_FILES['foto']['size'];
@@ -129,6 +129,7 @@ class Upload
     }
 
     public function hasFileToMove() { return !empty($this->movedFilename); }
+
     public function getMovedFilename() { return $this->movedFilename; }
 
     public function isUploadObrigatorio() { return $this->uploadObrigatorio; }

@@ -9,8 +9,7 @@ class AuthCtrl
     public function get_logout($rota) {
         auth()->logout();
         flash()->success('Bye!', 0);
-        header("Location: " . WEBROOT);
-        die();
+        redirect();
     }
 
     public function post_login($rota) {
@@ -26,7 +25,6 @@ class AuthCtrl
         }
 
         flash()->put($msg, $type, 0);
-        header("Location: " . WEBROOT . $redirect);
-        die();
+        redirect($redirect);
     }
 }

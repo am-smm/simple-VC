@@ -40,18 +40,17 @@ class Flash
         return $this;
     }
 
-    public function redirect($to, $withData=[]) {
-        if(!empty($withData))
+    public function redirect($to, $withData = []) {
+        if ( !empty($withData))
             $_SESSION[static::$old_values_key] = $withData;
-        header("Location: " . WEBROOT . $to);
-        die();
+        redirect($to);
     }
 
     public function old($clear = true) {
         $result = '';
 
-        if(isset($_SESSION[static::$old_values_key]))
-            $result=$_SESSION[static::$old_values_key];
+        if (isset($_SESSION[static::$old_values_key]))
+            $result = $_SESSION[static::$old_values_key];
 
         if ($clear) unset($_SESSION[static::$old_values_key]);
 

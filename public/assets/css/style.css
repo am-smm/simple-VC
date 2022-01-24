@@ -8,6 +8,10 @@ body {
     padding-top: 100px;
 }
 
+.hidden {
+    display: none;
+}
+
 #lap .selected {
     font-weight: bold;
 }

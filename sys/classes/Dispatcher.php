@@ -88,7 +88,9 @@ class Dispatcher
         $urlPath = $this->cleanUrlPath($url);
         // trata as rotas dinâmicas (com '(id)')
         $urlPathParam = preg_replace('/[0-9]+/', '(id)', $urlPath);
+        // rotas com um parâmetro específico
         if (isset($this->rotas[$urlPath])) $rota = $this->rotas[$urlPath];
+        // rotas com um parâmetro genérico ('(id)')
         elseif (isset($this->rotas[$urlPathParam])) $rota = $this->rotas[$urlPathParam];
         if ($rota) {
             $params = preg_replace('/[^0-9\/]+/', '', $urlPath);
@@ -97,13 +99,24 @@ class Dispatcher
         return ! !$rota;
     }
 
+    public function tryGetRouteByName($name, &$rota) {
+        $rota = false;
+
+        $found = array_filter($this->rotas, function ($rota) use ($name) {
+            /** @var Route $rota */
+            return $rota->getName() == $name;
+        });
+        if (count($found)) $rota = array_values($found)[0];
+
+        return ! !$rota;
+    }
+
     public function execute() {
         $url = $this->getUrlPath();
         if ($this->tryGetRouteByUrl($url, $rota)) {
 
             /** @var Route $rota */
-            $rota->getCallable()($rota);
-
+            call_user_func_array($rota->getCallable(), array_merge([$rota], $rota->getRequestParams()));
         } else  view()->v404($url);
     }
 }

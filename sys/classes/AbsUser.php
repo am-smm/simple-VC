@@ -1,28 +1,11 @@
 <?php
 
-class User
+abstract class AbsUser
 {
-    private static $tipos = [
+    protected static $tipos = [
         '0' => 'Registado (sem privilégios)',
         '1' => 'Superuser',
-        '10' => 'Cliente',
-        '100' => 'Colaborador',
     ];
-
-    public static function fromDBarray($array): User {
-        if ( !is_array($array)) return new User();
-
-        return new User(array_get('id', $array, 0),
-                        array_get('username', $array, ''),
-                        '',
-                        array_get('tipo', $array, 0),
-                        array_get('member_id', $array, null)
-        );
-    }
-
-    public static function fromJson($json): User {
-        return self::fromDBarray(json_decode($json, true));
-    }
 
     //-----------------------------------------------------
     //region ---- Var. de Instância
@@ -42,10 +25,6 @@ class User
      * @var int
      */
     protected $tipo;
-    /**
-     * @var int
-     */
-    protected $member_id;
     //endregion
 
 
@@ -57,28 +36,46 @@ class User
      * @param string $username
      * @param string $pass
      * @param int $tipo
-     * @param ?int $member_id
      */
-    public function __construct(int    $id = 0,
-                                string $username = '', string $pass = '',
-                                int    $tipo = 0, ?int $member_id = null) {
+    protected function __construct(int    $id = 0,
+                                   string $username = '', string $pass = '',
+                                   int    $tipo = 0) {
         $this->id = $id;
         $this->username = $username;
         $this->pass = $pass;
         $this->tipo = $tipo;
-        $this->member_id = $member_id;
     }
 
+    /**
+     * @return string[]
+     */
+    public function getTipos(): array { return self::$tipos; }
+
+    /**
+     * @return static
+     */
+    public static function fromDBarray($array) {
+        if ( !is_array($array)) return new static();
+
+        return new static(array_get('id', $array, 0),
+                          array_get('username', $array, ''),
+                          '',
+                          array_get('tipo', $array, 0)
+        );
+    }
+
+    /**
+     * @return static
+     */
+    public static function fromJson($json) {
+        return self::fromDBarray(json_decode($json, true));
+    }
     //endregion
 
 
     //-----------------------------------------------------
     //region ---- Modificadores e interrogadores
 
-    /**
-     * @return string[]
-     */
-    public function getTipos(): array { return self::$tipos; }
 
     /**
      * @return int[]
@@ -93,9 +90,9 @@ class User
 
     /**
      * @param int $id
-     * @return User
+     * @return static
      */
-    public function setId(int $id): User {
+    public function setId(int $id) {
         $this->id = $id;
         return $this;
     }
@@ -107,9 +104,9 @@ class User
 
     /**
      * @param string $username
-     * @return User
+     * @return static
      */
-    public function setUsername(string $username): User {
+    public function setUsername(string $username) {
         $this->username = strtolower(removeEspacos($username));
         return $this;
     }
@@ -121,24 +118,10 @@ class User
 
     /**
      * @param int $tipo
-     * @return User
+     * @return static
      */
-    public function setTipo(int $tipo): User {
+    public function setTipo(int $tipo) {
         if (in_array($tipo, $this->getTiposCodigos())) $this->tipo = $tipo;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMemberId(): ?int { return $this->member_id; }
-
-    /**
-     * @param ?int $member_id
-     * @return User
-     */
-    public function setMemberId(?int $member_id): User {
-        $this->member_id = $member_id;
         return $this;
     }
 
@@ -153,7 +136,6 @@ class User
             'id' => $this->getId(),
             'username' => $this->getUsername(),
             'tipo' => $this->getTipo(),
-            'member_id' => $this->getMemberId(),
         ];
     }
 
@@ -163,10 +145,11 @@ class User
 
     public function isAdmin(): bool { return $this->getTipo() == 1; }
 
-    public function isCliente(): bool { return $this->getTipo() == 10; }
+    public function getPasswordField() { return 'psw'; }
 
-    public function isColaborador(): bool { return $this->getTipo() == 100; }
+    public function getUsernameFieldName() { return 'username'; }
+
+    public function getEmailFieldName() { return 'email'; }
 
     //endregion
-
 }

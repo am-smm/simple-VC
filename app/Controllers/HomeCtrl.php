@@ -8,10 +8,12 @@ class HomeCtrl
 
     public function front($rota) {
 
-        $user = auth()->force();
+        //dd(auth()->hashPassword('000'));
+
+        $user = auth()->haveUserOrReditectTo();
         $dados_para_o_template = [
             'user' => $user,
-            'users' => bd()->fetchQuery("SELECT * FROM auth;"),
+            'users' => bd()->fetchAll(USER_TABLE),
         ];
 
         view()->load('home/home', $dados_para_o_template);

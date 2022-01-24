@@ -5,20 +5,26 @@ class UserCtrl
     public function perfil($rota) {
         if (auth()->user($user)) {
 
-            $cliente = false;
-            $colab = false;
-            /** @var User $user */
-            if ($user->isCliente()) {
-                $cliente = bd()->fetchById("cliente", $user->getMemberId());
-            } elseif ($user->isColaborador())
-                $colab = bd()->fetchById("colaborador", $user->getMemberId());
-
             view()->load('user/perfil', [
                 'user' => $user,
-                'cliente' => $cliente,
-                'colab' => $colab,
             ]);
         } else
             view()->load('403');
+    }
+
+    public function list($rota) {
+
+        $users = bd()->fetchAll(USER_TABLE);
+
+        view()->load('user/list', ['users' => $users]);
+    }
+
+    public function show($rota, $id) {
+
+        if (bd()->tryFetchById('utilizador', $id, $user))
+            view()->load('user/perfil', [
+                'user' => $user,
+            ]);
+        else view()->redirectWithFlashMsgTo('Utilizador inexistente!', url()->route('users-list'));
     }
 }

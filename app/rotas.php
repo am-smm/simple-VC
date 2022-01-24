@@ -10,3 +10,5 @@ route('login', [new AuthCtrl(), 'get_login']);
 route('auth', [new AuthCtrl(), 'post_login']);
 route('logout', [new AuthCtrl(), 'get_logout']);
 route('perfil', [new UserCtrl(), 'perfil']);
+route('utilizadores', [new UserCtrl(), 'list'], 'users-list');
+route('utilizadores/(id)', [new UserCtrl(), 'show'], 'user-show');

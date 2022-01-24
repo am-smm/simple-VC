@@ -133,13 +133,21 @@ class BDService
         return $this->fetchQuery(sprintf("SELECT * FROM %s", $tbl_name));
     }
 
-    public function fetchById($tbl_name, $id) {
+    public function tryFetchById($tbl_name, $id, &$result): bool {
 
-        return $this->fetchQuery(
+        $result = $this->fetchQuery(
             sprintf("SELECT * FROM %s WHERE id=:id;", $tbl_name),
             ['id' => $id]
         );
+        if (count($result)) {
+            $result = $result[0];
+            return true;
+        }
+
+        $result = null;
+        return false;
     }
+
 }
 
 /**

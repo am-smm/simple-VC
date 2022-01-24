@@ -39,6 +39,17 @@ function array_get($key, $array, $default = false) {
     return ($array[$key] ?? $default);
 }
 
+function trygetDatetimeFromStr($str, &$datetime, $format = 'Y-m-d H:i:s'): bool {
+
+    $datetime = DateTime::createFromFormat($format, $str);
+    if ($datetime === false) {
+        $datetime = new DateTime();
+        return false;
+    }
+
+    return true;
+}
+
 function slugify($text, string $divider = '-') {
     // replace non letter or digits by divider
     $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
@@ -63,4 +74,9 @@ function slugify($text, string $divider = '-') {
     }
 
     return $text;
+}
+
+function redirect($to = '') {
+    header("Location: " . WEBROOT . $to);
+    exit();
 }

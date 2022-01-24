@@ -7,13 +7,16 @@
 define("WEBROOT", 'http://pap.loc' . DIRECTORY_SEPARATOR);
 
 // tag Title
-define('PRJ_TITLE', 'LAP');
+define('PRJ_TITLE', 'Gest. Tarefas');
 
 // consts para acesso a BD usadas em BDService
 define('DB_HOST', 'localhost');
 define('DB_USER', 'gestpt_user'); // 'root' on ubuntu // 'root' on XAMPP
 define('DB_PASS', 'gestpt_pass'); // 'root' on ubuntu // ''     on XAMPP
-define('DB_NAME', 'smm_lap');
+define('DB_NAME', 'smm_tarefas');
+
+define('USER_CLASS', 'Utilizador');
+define('USER_TABLE', 'utilizador');
 
 //-------------------------------------------------------
 //-------------------------------------------------------

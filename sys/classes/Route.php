@@ -23,9 +23,9 @@ class Route
     private function __construct(string $urlPath, array $callable, $name = '') {
         $this->urlPath = $urlPath;
         $this->callable = $callable;
-        if(!is_array($callable)
-            || count($callable)!=2
-            || !method_exists($callable[0],$callable[1]))
+        if ( !is_array($callable)
+            || count($callable) != 2
+            || !method_exists($callable[0], $callable[1]))
             throw new Exception(sprintf('Rota %s mal definida!', $urlPath));
         $this->name = $name;
         $this->requestParams = [];
