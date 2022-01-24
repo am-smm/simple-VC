@@ -57,7 +57,7 @@ class Auth
         $user = new $useClassName;
 
         $sql = sprintf("SELECT * FROM %s WHERE (%s=:un OR %s=:em) AND %s=:psw ;",
-                       $useClassName,
+                       USER_TABLE,
                        $user->getUsernameFieldName(),
                        $user->getEmailFieldName(),
                        $user->getPasswordField()
@@ -76,7 +76,7 @@ class Auth
         return false;
     }
 
-    public function haveUserOrReditectTo($to = 'login') {
+    public function haveUserOrReditectTo($to = 'login'){
 
         if ( !isUserClassDefined()) return false;
         if ($this->user($user)) return $user;

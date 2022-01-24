@@ -77,6 +77,7 @@ function slugify($text, string $divider = '-') {
 }
 
 function redirect($to = '') {
-    header("Location: " . WEBROOT . $to);
+    if (stripos($to, 'http') === false) $to = WEBROOT . $to;
+    header("Location: " . $to);
     exit();
 }

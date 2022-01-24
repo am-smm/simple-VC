@@ -14,7 +14,10 @@ class URL
 
     private function __construct() { }
 
-    function to($str, $tail = '') { return WEBROOT . trim($str, '/ ') . DIRECTORY_SEPARATOR . $tail; }
+    function to($str, $tail = '') {
+        return WEBROOT . trim($str, '/ ')
+            . (empty($tail) ? '' : DIRECTORY_SEPARATOR . $tail);
+    }
 
     /**
      * @throws Exception
@@ -44,7 +47,7 @@ class URL
                 } else $url[] = $item;
             }
 
-            return implode('/', $url);
+            return $this->to(implode('/', $url));
         }
         flash()->error('Rota inexistente: ' . $name);
         return $res;
