@@ -15,7 +15,7 @@ view()->load('base/header');
         <div class="col-sm-12 col-lg-6"><h1> Root / </h1>
 
             <h4> DDL </h4>
-            <pre class="prettyprint"><?php
+            <pre class="prettyprint" style="font-size: 9px"><?php
                 require PUBLIC_PATH . 'material/bd/smm_tarefas_DDL.sql' ?></pre>
         </div>
         <div class="col-sm-12 col-lg-6">
@@ -28,7 +28,7 @@ view()->load('base/header');
             <p><br></p>
             <img src="<?= PUBLIC_URL ?>material/bd/smm_tarefas_ER_all.png" class="img-fluid" alt="ER">
             <p><br></p>
-            <a href="<?= ASSETS_URL ?>lap.sql" download>DDL + Dados (SQL create script)</a>
+            <a href="<?= PUBLIC_URL ?>material/bd/smm_tarefas_dummy-data.sql" download>Dados (SQL script)</a>
             <p><br></p>
             <h3><a href="<?= url()->to('home') ?>">Home...</a></h3>
         </div>

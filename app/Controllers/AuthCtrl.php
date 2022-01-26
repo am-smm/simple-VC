@@ -19,7 +19,7 @@ class AuthCtrl
         $type = 'error';
 
         if (auth()->login($username, getInput('password', ''))) {
-            $msg = sprintf("Benvindo %s!", $username);
+            $msg = sprintf("Bemvindo %s!", $username);
             $type = 'success';
             $redirect = 'home';
         }
