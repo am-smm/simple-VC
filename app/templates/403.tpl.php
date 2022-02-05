@@ -25,12 +25,14 @@
 <body>
 
 <div class="container p403">
-
+    <small><?=$flow?></small>::<small><?=$url?></small>
     <h1>403</h1>
     <br>
     <br>
     <h4>Acesso restrito!</h4>
-
+    <br>
+    <br>
+    <p><a href="<?=url()->route('login')?>">Indicar credenciais.</a></p>
 </div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

@@ -28,10 +28,7 @@ class Dispatcher
     protected function __construct() { $this->is_booted = false; }
 
     public function boot() {
-        if (isset($_SERVER['PATH_INFO']))
-            $this->urlPath = $_SERVER['PATH_INFO'];
-        else
-            $this->urlPath = '';
+        $this->urlPath = $_SERVER['PATH_INFO'] ?? '/';
 
         // limpa a barra inicial para que '/home' e 'home' tenham a mesma chave do array de rotas
         $this->urlPath = $this->cleanUrlPath($this->urlPath);
@@ -84,14 +81,19 @@ class Dispatcher
 
     public function tryGetRouteByUrl($url, &$rota) {
         $rota = false;
+
         // limpa a barra inicial para que '/home' e 'home' tenham a mesma chave do array de rotas
         $urlPath = $this->cleanUrlPath($url);
+
         // trata as rotas dinâmicas (com '(id)')
         $urlPathParam = preg_replace('/[0-9]+/', '(id)', $urlPath);
+
         // rotas com um parâmetro específico
         if (isset($this->rotas[$urlPath])) $rota = $this->rotas[$urlPath];
+
         // rotas com um parâmetro genérico ('(id)')
         elseif (isset($this->rotas[$urlPathParam])) $rota = $this->rotas[$urlPathParam];
+
         if ($rota) {
             $params = preg_replace('/[^0-9\/]+/', '', $urlPath);
             $rota->setRequestParams(preg_split('/\//', $params, -1, PREG_SPLIT_NO_EMPTY));
@@ -113,10 +115,9 @@ class Dispatcher
 
     public function execute() {
         $url = $this->getUrlPath();
-        if ($this->tryGetRouteByUrl($url, $rota)) {
 
-            /** @var Route $rota */
-            call_user_func_array($rota->getCallable(), array_merge([$rota], $rota->getRequestParams()));
-        } else  view()->v404($url);
+        /** @var Route $rota */
+        if ($this->tryGetRouteByUrl($url, $rota)) $rota->callAction();
+        else  view()->v404($url);
     }
 }

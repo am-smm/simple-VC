@@ -16,6 +16,8 @@ class View
 
     private function __construct() { }
 
+    public function v403() { $this->load('403'); }
+
     /**
      * @param string $page
      */

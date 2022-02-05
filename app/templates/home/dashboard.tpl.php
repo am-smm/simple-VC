@@ -84,7 +84,7 @@ view()->load('base/navbar');
 </div>
 
 <?php
-tvars(get_defined_vars());
+// tvars(get_defined_vars());
 
 view()->load('base/footer');
 ?>
