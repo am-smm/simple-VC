@@ -83,14 +83,14 @@ class Utilizador extends AbsUser
 
     public function setGrp(int $grp): Utilizador { return $this->setTipo($grp); }
 
-    public function getEmail(): string { return $this->email; }
+    public function getEmail(): string { return $this->email??''; }
 
     public function setEmail(string $email): Utilizador {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) $this->email = $email;
         return $this;
     }
 
-    public function isLogged(): bool { return $this->is_logged; }
+    public function isLogged(): int { return !!$this->is_logged; }
 
     public function setIsLogged($tf): Utilizador {
         $this->is_logged = ! !$tf;

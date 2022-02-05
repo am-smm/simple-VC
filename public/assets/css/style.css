@@ -80,5 +80,12 @@ body {
     margin: 0 auto .5em auto;
 }
 
-
+.card img{
+    max-width: 150px;
+    display: inline-block;
+    margin: auto;
+}
+.card a{
+    text-decoration: none;
+}
 

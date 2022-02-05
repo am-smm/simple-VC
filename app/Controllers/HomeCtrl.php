@@ -10,12 +10,13 @@ class HomeCtrl
 
         //dd(auth()->hashPassword('000'));
 
+        /** @var Utilizador $user */
         $user = auth()->haveUserOrReditectTo();
         $dados_para_o_template = [
-            'user' => $user,
-            'users' => bd()->fetchAll(USER_TABLE),
+           'user_obj' => $user,
+//            'users' => bd()->fetchAll(USER_TABLE),
         ];
 
-        view()->load('home/home', $dados_para_o_template);
+        view()->load('home/dashboard', $dados_para_o_template);
     }
 }
